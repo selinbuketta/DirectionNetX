@@ -1,0 +1,17 @@
+In CPU:
+For cpu run ->  docker start -ai directionnet_gpu
+
+For training;
+CUDA_VISIBLE_DEVICES="" python train.py --checkpoint_dir /workspace/DirectionNet/checkpoints_cpu --data_dir /workspace/DirectionNet/MatterportA/R90_fov90/test --model 9D --batch 4 --n_epoch 1 --alpha 1e3 --lr 1e-4
+  
+In GPU: 
+For gpu run ->  docker start -ai directionnet_gpu3
+
+For training;
+python train.py \
+  --checkpoint_dir /workspace/DirectionNet/checkpoints_gpu \
+  --data_dir /workspace/DirectionNet/MatterportA/R90_fov90/test \
+  --model 9D --batch 4 --n_epoch 1 --alpha 1e3 --lr 1e-4
+
+For evaluating;
+python eval.py \ > --checkpoint_dir /workspace/DirectionNet-main/checkpoints_gpu \ > --eval_data_dir /workspace/DirectionNet-main/MatterportA/R90_fov90/test/0/ \ > --save_summary_dir /workspace/DirectionNet-main/eval_logs \ > --testset_size 10 \ > --batch 2 \ > --model 9D

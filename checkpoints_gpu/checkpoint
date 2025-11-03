@@ -1,0 +1,2 @@
+model_checkpoint_path: "/workspace/DirectionNet/checkpoints_gpu/model.ckpt-0"
+all_model_checkpoint_paths: "/workspace/DirectionNet/checkpoints_gpu/model.ckpt-0"
