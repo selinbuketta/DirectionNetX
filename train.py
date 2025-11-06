@@ -48,8 +48,8 @@ flags.DEFINE_string(
 flags.DEFINE_string(
     'model', '9D',
     '9D (rotation), 6D (rotation), T (translation), Single (no derotation)')
-flags.DEFINE_integer('batch', 20, 'The size of mini-batches.')
-flags.DEFINE_integer('n_epoch', -1, 'Number of training epochs.')
+flags.DEFINE_integer('batch', 2, 'The size of mini-batches.')
+flags.DEFINE_integer('n_epoch', 1, 'Number of training epochs.')
 flags.DEFINE_integer(
     'distribution_height', 64, 'The height dimension of output distributions.')
 flags.DEFINE_integer(

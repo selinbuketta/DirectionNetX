@@ -1,40 +1,40 @@
-# ==========================
-# DirectionNet (TF2-compatible)
-# ==========================
-FROM tensorflow/tensorflow:2.11.0-gpu
+# Base image: official TensorFlow 2.15 with GPU support (CUDA 12.2, cuDNN 8.9)
+FROM tensorflow/tensorflow:2.15.0-gpu
 
-LABEL maintainer="DirectionNet Docker"
-LABEL description="Docker image for DirectionNet (CVPR 2020) running on TensorFlow 2.11 in compat.v1 mode"
+# Optional: silence TensorFlow logs
+ENV TF_CPP_MIN_LOG_LEVEL=2
 
-# ---- Basic setup ----
-ENV DEBIAN_FRONTEND=noninteractive
+# Fix cuSolverDN issue on RTX 40 GPUs
+ENV TF_USE_CUSOLVER=0
+ENV TF_FORCE_GPU_ALLOW_GROWTH=true
+
+# System dependencies
 RUN apt-get update && apt-get install -y \
-    git wget unzip libgl1-mesa-glx libglib2.0-0 python3-tk \
-    && rm -rf /var/lib/apt/lists/*
+    python3-pip python3-dev git wget vim && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# ---- Install Python dependencies ----
-RUN pip install --upgrade pip && \
-    pip install setuptools==65.5.1 wheel && \
-    pip install \
-    tensorflow-addons==0.19.0 \
-    tensorflow-graphics==2021.12.3 \
-    tensorflow-probability==0.19.0 \
-    tf_slim==1.1.0 \
-    absl-py==2.1.0 \
-    numpy==1.24.3 \
-    matplotlib==3.7.5 \
-    scikit-image==0.20.0 \
-    opencv-python==4.8.1.78 \
-    Pillow==9.5.0
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip
 
-# ---- Create workspace ----
-WORKDIR /workspace/DirectionNet
+# Install your Python dependencies
+RUN python3 -m pip install \
+    "tensorflow==2.15.0" \
+    "keras==2.15.0" \
+    "tensorflow-probability==0.23.0" \
+    "tf-slim==1.1.0" \
+    "tensorflow-graphics" \
+    tensorboard \
+    numpy matplotlib opencv-python absl-py
 
-# Copy your project files into container
-COPY . /workspace/DirectionNet
+# Optional (if on Apple Silicon; ignored on Linux)
+RUN python3 -m pip install tensorflow-metal || true
 
-# ---- Optional: set PYTHONPATH for pano_utils if it's local ----
-ENV PYTHONPATH="/workspace/DirectionNet/pano_utils:${PYTHONPATH}"
+# Set workspace directory
+WORKDIR /workspace/DirectionNetGPU
 
-# ---- Set default command ----
-CMD ["bash"]
+# Expose TensorBoard port
+EXPOSE 6006
+
+# Default command: open bash shell
+CMD ["/bin/bash"]
+

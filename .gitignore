@@ -1,6 +1,8 @@
 MatterportA/
-MatterportA (Copy)/
-MatterportA_test/
-*.deb
+MatterportB/
 data/
 test/
+*.deb
+*.deb.*/
+*.tar/
+

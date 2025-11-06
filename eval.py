@@ -13,6 +13,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# --- TF1 uyumluluk + tf_slim patch bloğu (DOSYANIN EN ÜSTÜNE) ---
+import os
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "1")
+
+import tensorflow as tf
+# TF2'yi TF1 graf davranışına al
+tf.compat.v1.disable_v2_behavior()
+
+# 1) tf_slim'in beklediği control_flow_ops.cond'i yönlendir
+from tensorflow.python.ops import control_flow_ops as _cfo
+if not hasattr(_cfo, "cond"):
+    _cfo.cond = tf.compat.v1.cond  # veya tf.cond
+
+# 2) tf_slim'in beklediği array_ops.stack'i yönlendir
+from tensorflow.python.ops import array_ops as _aops
+if not hasattr(_aops, "stack"):
+    _aops.stack = tf.stack  # TF2'de karşılığı budur
+# --- /blok sonu ---
+
+
 """Evaluate variations of DirectionNet for relative camera pose estimation."""
 from absl import app
 from absl import flags
