@@ -1,2 +1,0 @@
-model_checkpoint_path: "/workspace/DirectionNet/checkpoints_mock/model.ckpt-0"
-all_model_checkpoint_paths: "/workspace/DirectionNet/checkpoints_mock/model.ckpt-0"
