@@ -1,3 +1,0 @@
-model_checkpoint_path: "/workspace/DirectionNetGPU/checkpoints_b6e4/model.ckpt-666"
-all_model_checkpoint_paths: "/workspace/DirectionNetGPU/checkpoints_b6e4/model.ckpt-0"
-all_model_checkpoint_paths: "/workspace/DirectionNetGPU/checkpoints_b6e4/model.ckpt-666"

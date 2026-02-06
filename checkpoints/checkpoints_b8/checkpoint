@@ -1,3 +1,0 @@
-model_checkpoint_path: "/workspace/DirectionNetGPU/checkpoints_b8/model.ckpt-250"
-all_model_checkpoint_paths: "/workspace/DirectionNetGPU/checkpoints_b8/model.ckpt-0"
-all_model_checkpoint_paths: "/workspace/DirectionNetGPU/checkpoints_b8/model.ckpt-250"
