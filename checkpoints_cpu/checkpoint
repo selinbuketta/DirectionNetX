@@ -1,4 +1,0 @@
-model_checkpoint_path: "/workspace/DirectionNet/checkpoints_cpu/model.ckpt-500"
-all_model_checkpoint_paths: "/workspace/DirectionNet/checkpoints_cpu/model.ckpt-0"
-all_model_checkpoint_paths: "/workspace/DirectionNet/checkpoints_cpu/model.ckpt-250"
-all_model_checkpoint_paths: "/workspace/DirectionNet/checkpoints_cpu/model.ckpt-500"
