@@ -10,6 +10,7 @@ from absl import app, flags
 import dataset_loader
 import losses
 import model
+from models import siamese_cvt
 import util
 
 import tensorflow.compat.v1 as tf
@@ -30,6 +31,10 @@ flags.DEFINE_string(
 flags.DEFINE_string(
     'model', '9D',
     '9D (rotation), 6D (rotation), T (translation), Single (no derotation)')
+flags.DEFINE_string(
+    'siamese_backbone',
+    'cnn',
+    'Siamese encoder/decoder backbone: cnn or cvt')
 flags.DEFINE_integer('batch', 2, 'The size of mini-batches.')
 flags.DEFINE_integer('n_epoch', 1, 'Number of training epochs.')
 flags.DEFINE_integer(
@@ -67,7 +72,10 @@ Computation = collections.namedtuple(
 # Rotation model
 # -----------------------------
 def direction_net_rotation(src_img, trt_img, rotation_gt, n_output_distributions):
-    net = model.DirectionNet(n_output_distributions)
+    if FLAGS.siamese_backbone == 'cvt':
+        net = siamese_cvt.DirectionNetCVT(n_output_distributions)
+    else:
+        net = model.DirectionNet(n_output_distributions)
     global_step = tf.train.get_or_create_global_step()
 
     directions_gt = rotation_gt[:, :n_output_distributions]
