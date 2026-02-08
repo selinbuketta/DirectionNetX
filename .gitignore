@@ -19,14 +19,14 @@ data_sanitycheck/
 datasets/
 
 # Checkpoints
-
-
 checkpoints/
 *.ckpt
 *.pth
 *.pt
 *.h5
 
+# Images
+images/
 
 
 # Evaluation Summary
